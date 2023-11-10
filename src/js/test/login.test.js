@@ -38,14 +38,14 @@ describe('login function', () => {
         jest.clearAllMocks();
     });
 
-    it('Throws an error if a login attempt fails (wrong password or username)', async () => {
+    it('error if loggin failed', async () => {
         global.fetch = mockFetchFailure;
         await expect(login('testtest@gmail.com', 'test')).rejects.toThrow(
             'Unauthorized',
         );
     });
 
-    it('Logs in and tests if profile is set to localstorage when logging in', async () => {
+    it('tests localstorage', async () => {
         const email = 'test@noroff.no';
         const password = 'testuser';
         const mockResponse = {
@@ -67,6 +67,6 @@ describe('login function', () => {
             JSON.stringify(profile),
         );
         expect(global.localStorage.getItem).toHaveBeenCalledWith('token');
-        console.log('Checks if token is saved to LocalStorage when logging in');
+  
     });
 });
