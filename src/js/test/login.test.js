@@ -2,11 +2,13 @@ import { login } from "../../js/api/auth/login.js";
 import dotenv from "dotenv"
 dotenv.config()
 
-const email = process.env.EMAIL;
-const password = process.env.PASSWORD;
-const accessToken = process.env.TOKEN;
+require('dotenv/config');
 
-describe("login function", () => {
+const name = 'test';
+const email = 'test@example.com';
+const token = 'wqqsszkkkjjddddddddddff1ssddd';
+
+describe('login function', () => {
     let mockFetchSuccess;
     let mockFetchFailure;
 
@@ -14,15 +16,15 @@ describe("login function", () => {
         mockFetchSuccess = jest.fn().mockResolvedValue({
             ok: true,
             json: jest.fn().mockResolvedValue({
+                name: name,
                 email: email,
-                password,
-                accessToken: accessToken,
+                token: token,
             }),
         });
 
         mockFetchFailure = jest.fn().mockResolvedValue({
             ok: false,
-            statusText: "Unauthorized",
+            statusText: 'Unauthorized',
         });
 
         global.fetch = mockFetchSuccess;
@@ -36,30 +38,35 @@ describe("login function", () => {
         jest.clearAllMocks();
     });
 
-    it("Throws error if credentials are invalid)", async () => {
+    it('Throws an error if a login attempt fails (wrong password or username)', async () => {
         global.fetch = mockFetchFailure;
-        await expect(login("test@gmail.com", "test")).rejects.toThrow(
-            "Unauthorized",
+        await expect(login('testtest@gmail.com', 'test')).rejects.toThrow(
+            'Unauthorized',
         );
     });
 
-    it("Log in and test localstorage", async () => {
+    it('Logs in and tests if profile is set to localstorage when logging in', async () => {
+        const email = 'test@noroff.no';
+        const password = 'testuser';
         const mockResponse = {
             ok: true,
             json: jest.fn().mockResolvedValue({
+                name: name,
                 email: email,
-                password,
             }),
         };
+
         global.fetch = jest.fn().mockResolvedValue(mockResponse);
         const profile = await login(email, password);
         expect(profile).toEqual({
+            name: name,
             email: email,
         });
         expect(global.localStorage.setItem).toHaveBeenCalledWith(
-            "profile",
+            'profile',
             JSON.stringify(profile),
         );
-        expect(global.localStorage.getItem).toHaveBeenCalledWith("token");
+        expect(global.localStorage.getItem).toHaveBeenCalledWith('token');
+        console.log('Checks if token is saved to LocalStorage when logging in');
     });
 });
