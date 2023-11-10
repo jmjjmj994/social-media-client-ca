@@ -5,6 +5,7 @@ on: [workflow_dispatch]
 env:
   ## Sets environment variable
   
+  
   EMAIL: ${{secrets.EMAIL}}    
   PASSWORD: ${{secrets.PASSWORD}}
   
