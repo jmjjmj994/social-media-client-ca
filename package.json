@@ -12,6 +12,7 @@
     "test-cy": "npm run test-e2e-cli",
     "test-e2e": "cypress open",
     "test-e2e-cli": "cypress run"
+
   },
   "keywords": [],
   "author": "Noroff",

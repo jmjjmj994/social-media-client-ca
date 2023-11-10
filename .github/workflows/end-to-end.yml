@@ -4,9 +4,7 @@ on:
     pull_request:
     workflow_dispatch:
 
-env:
-    CYPRESS_EMAIL: ${{ secrets.EMAIL }}
-    CYPRESS_PASSOWRD: ${{ secrets.PASSWORD }}        
+  
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,3 +23,7 @@ jobs:
 
     - name: Run Unit Tests
       run: npm test-cy
+      env:
+        CYPRESS_EMAIL: ${{ secrets.EMAIL }}
+        CYPRESS_PASSOWRD: ${{ secrets.PASSWORD }}      
+      
