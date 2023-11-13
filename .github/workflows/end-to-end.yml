@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Run Unit Tests
-      run: npm test-cy
+      run: npm run test-cy
       env:
         CYPRESS_EMAIL: ${{ secrets.EMAIL }}
         CYPRESS_PASSOWRD: ${{ secrets.PASSWORD }}      
