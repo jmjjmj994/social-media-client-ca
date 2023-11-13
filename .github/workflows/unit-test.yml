@@ -21,9 +21,8 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Run end-to-end test
-      run: npm run test-cy
-      env:
-        CYPRESS_EMAIL: ${{ secrets.EMAIL }}
-        CYPRESS_PASSOWRD: ${{ secrets.PASSWORD }}      
+    - name: Run Unit test
+      run: npm run test-jest
+   
+
       
